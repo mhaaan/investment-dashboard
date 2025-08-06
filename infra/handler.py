@@ -10,12 +10,12 @@ import json # Provides a way to encode and decode JSON data, which is commonly u
 import os # Provides way of using operating system dependent functionality, such as accessing environment variables, working with file paths and performing file and directory operationsl
 import requests # Allows you to send HTTP requests, which is useful for interacting with web services and APIs
 
-from dotenv import load_dotenv # Used to load environment variables from a .env file, which is useful for managing configuration settings in a secure way
+# from dotenv import load_dotenv # Used to load environment variables from a .env file, which is useful for managing configuration settings in a secure way
 
-load_dotenv() # Used to load the environement variable from a .env file (ALWASY ADD .ENV TO .GITIGNORE!!!!!!!)
+# load_dotenv() # Used to load the environement variable from a .env file (ALWASY ADD .ENV TO .GITIGNORE!!!!!!!)
 
 def lambda_handler(event, context):
-    trading_212_api_key = os.environ.get('212_API_KEY')
+    trading_212_api_key = os.environ.get('TRADING212_API_KEY')
     if not trading_212_api_key:
         return {
             'statusCode': 500,
@@ -23,7 +23,7 @@ def lambda_handler(event, context):
         }
 
     url = "https://live.trading212.com/api/v0/equity/portfolio"
-    headers = {"Authorization": trading_212_api_key}
+    headers = {"Authorization": f"Bearer {trading_212_api_key}"}
 
     try:
         response = requests.get(url, headers=headers, timeout=10)

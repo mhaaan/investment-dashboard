@@ -1,0 +1,29 @@
+service: investment-dashboard-backend
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: eu-west-2
+  environment:
+    TRADING212_API_KEY: ${env:TRADING212_API_KEY}
+
+functions:
+  trading212Portfolio:
+    handler: handler.lambda_handler
+    events:
+      - http:
+          path: trading212/portfolio
+          method: get
+
+# package:
+#   include:
+#     - backend/trading212/**
+#     - backend/trading212/handler.py
+#   exclude:
+#     - node_modules/**
+#     - infra/**
+#     - .gitignore
+#     - .env
+#     - .git/**
+# plugins:
+#   - serverless-python-requirements
