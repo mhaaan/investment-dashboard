@@ -25,5 +25,12 @@ functions:
 #     - .gitignore
 #     - .env
 #     - .git/**
-# plugins:
-#   - serverless-python-requirements
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    slim: true
+    noDeploy:
+      - boto3
+      - botocore

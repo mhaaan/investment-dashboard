@@ -16,15 +16,20 @@ import requests # Allows you to send HTTP requests, which is useful for interact
 
 def lambda_handler(event, context):
     trading_212_api_key = os.environ.get('TRADING212_API_KEY')
+
+    
+
     if not trading_212_api_key:
         return {
             'statusCode': 500,
             'body': 'API key not set!!!'
         }
 
-    url = "https://live.trading212.com/api/v0/equity/portfolio"
-    headers = {"Authorization": f"Bearer {trading_212_api_key}"}
-
+    url = "https://demo.trading212.com/api/v0/equity/portfolio"
+    headers = {"Authorization": f"{trading_212_api_key}"}
+    print("API Key:", trading_212_api_key[:10])  # Just first few chars for safety
+    print("URL:", url)
+    print("Headers:", headers)
     try:
         response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
